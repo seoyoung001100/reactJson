@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
       
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 p-4 padding: 1rem;">
-        {userCount && userCount.map((person, index) => (
+        {data && data.map((person, index) => (
           
           <div
             key={index}
@@ -26,9 +26,9 @@ import { Link } from 'react-router-dom';
               <Link to={`/PostList/${person.userId}`} className="focus:outline-none no-underline">
                 <span className="absolute inset-0" aria-hidden="true" />
                 {/* 이름을 눌리면 해당 유저가 쓴 글(PostList)로 이동 */}
-                {userCount && <p className="text-sm font-medium text-gray-900 text-xl">{person.name}</p>} 
-                <p className="truncate text-sm text-gray-500">{person.email}</p>
-                <p className="truncate text-sm text-gray-500">{person.phone}</p>
+                <p className="text-sm font-medium text-gray-900 text-xl">{person.name}</p> 
+              <p className="truncate text-sm text-gray-500">{person.email}</p>
+              <p className="truncate text-sm text-gray-500">{person.phone}</p>
               </Link>
             </div>
           </div>
@@ -36,4 +36,3 @@ import { Link } from 'react-router-dom';
       </div>
     )
   }
-  
