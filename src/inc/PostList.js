@@ -1,65 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useRecoilValue } from 'recoil';
-import { UseUserList, UserPostList } from '../recoil/ReactAtoms';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
-// const posts = data && data.filter((item) => item.userId == userId);
+export default function Example({data}) {
+  const { userId } = useParams(); // URL 파라미터에서 userId를 가져옵니다.
+  // 해당 유저의 게시물만 필터링합니다.
+  const userData = data ? data.filter(item => item.userId === Number(userId)) : [];
+  //처음 로딩할때 안뜨지만 탭을 이리저리 바꾸면 뜬다,....
 
-const tabs = [
-  { name: '전체', current: true}, // 여기에 content내용을 담을 수도 있다. (ex. content: 'Tab menu ONE')
-  { name: '작성중', current: false },
-  { name: '완료', current: false },
-];
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
-  
-  export default function Example() {
-    // const [currentTab, setCurrentTab] = useState(0);
-    // const { userId } = useParams();
-    return (
-      <div className="border-b border-gray-200 pb-5 sm:pb-0">
-        <h3 className="text-base font-semibold leading-6 text-gray-900">PostList</h3>
-        <div className="mt-3 sm:mt-4">
-          <div className="sm:hidden">
-            <label htmlFor="current-tab" className="sr-only">
-              Select a tab
-            </label>
-            <select
-              id="current-tab"
-              name="current-tab"
-              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              defaultValue={tabs.find((tab) => tab.current).name}
-            >
-              {tabs.map((tab) => (
-                <option key={tab.name}>{tab.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="hidden sm:block">
-            <nav className="-mb-px flex space-x-8">
-              {tabs.map((tab) => (
-                <a
-                  key={tab.name}
-                  href={tab.href}
-                  className={classNames(
-                    tab.current
-                      ? 'border-indigo-500 text-indigo-600'
-                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                    'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium'
-                  )}
-                  aria-current={tab.current ? 'page' : undefined}
-                >
-                  {tab.name}
-                </a>
-              ))}
-            </nav>
-          </div>
+  const tabs = [
+    { 
+      name: '전체', 
+      content: () => {
+        // 전체 데이터를 반환하는 함수 호출
+        return userData;
+      }  
+    },
+    { 
+      name: '작성중', 
+      content: () => {
+        // 전체 데이터를 반환하는 함수 호출
+        return userData.filter(item => item.completed === false);
+      }  
+    },
+    { 
+      name: '완료',
+      content: () => {
+        // 전체 데이터를 반환하는 함수 호출
+        return userData.filter(item => item.completed === true);
+      } 
+    },
+  ];
+
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
+
+  return (
+    <div className="border-b border-gray-200 pb-5 sm:pb-0">
+      <h3 className="text-base font-semibold leading-6 text-gray-900">PostList</h3>
+      <div className="mt-3 sm:mt-4">
+        <div className="hidden sm:block">
+          <nav className="-mb-px flex space-x-8">
+            {tabs.map((tab) => (
+              <button
+                key={tab.name}
+                onClick={() => setCurrentTab(tab)}
+                className={classNames(
+                  tab.name === currentTab.name
+                    ? 'border-indigo-500 text-indigo-600'
+                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
+                  'whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium'
+                )}
+                aria-current={tab.name === currentTab.name ? 'page' : undefined}
+              >
+                {tab.name}
+              </button>
+            ))}
+          </nav>
+        </div>
+        <div>
+            {currentTab.content().map(item => (
+              <Link to = {`/PostList?id=${item.id}`}>
+                <p key={item.id}>{item.title}</p>
+              </Link>
+            ))} {/* 탭에 따라 내용물이 바뀌는 부분 */}
         </div>
       </div>
-    )
+    </div>
+  )
 }
