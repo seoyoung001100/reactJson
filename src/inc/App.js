@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 function App() {
   const [data, setData] = useState(null);
   const [userdata, setUserdata] = useState(null);
+  const [comment, setComment] = useState(null);
 
   useEffect(() => {
     // async()는 함수가 들어있는 라이브러리
@@ -30,6 +31,17 @@ function App() {
     const userList = async() =>{
       try {
         const userData = await axios.get('https://jsonplaceholder.typicode.com/users');
+        setUserdata(userData.data); 
+  
+        console.log(userData.data); 
+      } 
+      catch (error) {
+        console.error('Error', error);
+      }
+    };
+    const userComment = async() =>{
+      try {
+        const userData = await axios.get('https://jsonplaceholder.typicode.com/comments?postId=1');
         setUserdata(userData.data); 
   
         console.log(userData.data); 

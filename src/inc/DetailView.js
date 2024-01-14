@@ -1,52 +1,37 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-export default function Example({data}) {
+export default function Example({data},{}) {
 
-    const { userId } = useParams();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const id = query.get('id');
 
+  // id를 사용하여 데이터에서 해당 게시물을 찾음.
+    const post = data.find(item => item.id === Number(id));
 
+  // 현재 게시물의 인덱스를 찾음.
+    const index = data.findIndex(item => item.id === Number(id));
+
+  // 이전과 다음 게시물을 찾음.
+    const prev = data[index - 1];
+    const next = data[index + 1];
+     
     return (
-      <div className="border-b border-gray-200 pb-5">
-        <h3 className="text-base font-semibold leading-6 text-gray-900">Job Postings</h3>
-        <p className="mt-2 max-w-4xl text-sm text-gray-500">
-          Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur id nulla tempus.
-          Fringilla egestas justo massa purus sagittis malesuada.
-        </p>
-      </div>
-    )
+        <div className="border-b border-gray-200 pb-5">
+          <h3 className="text-base font-semibold leading-6 text-gray-900">{post.title}</h3>
+            <p className="mt-2 max-w-4xl text-sm text-gray-500">
+                ID : {post.id}
+            </p>
+            <p className="mt-2 max-w-4xl text-sm text-gray-500">
+                UserID: {post.userId}
+            </p>
+          
+          {/* 이전과 다음 링크를 출력 */}
+          {prev ? (<p><Link to={`/PostList?id=${prev.id}`}>이전 글 | {prev.title}</Link></p>) : (<p>이전 글이 없습니다.</p>)}
+          {next ? (<p><Link to={`/PostList?id=${next.id}`}>다음 글 | {next.title}</Link></p>) : (<p>다음 글이 없습니다</p>)}
+        </div>
+      );
   }
-  
-
-// function DetailView({data}){
-//     const {userId, id} = useParams();
-//     // console.log(id);
-//     // console.log(userId);
-
-//     //******props 대신 recoil을 사용 할 수도 있다. react전용 라이브러리 함수******
-//     const userArray = data && data.filter((prop) => prop.userId.toString() === userId);
-//     const item = userArray && userArray.filter((prop) => prop.id.toString() === id);
-//     const index = userArray && userArray.findIndex(prop => prop.id.toString() === id);
-
-//     const prev = userArray[index-1];
-//     const next = userArray[index+1];
-//     return(
-//         <div>
-//             {item && item.map((prop) => (
-//                 <div key={prop.id}>
-//                     <p>User ID : {prop.userId}</p>
-//                     <p>Index : {prop.id}</p>
-//                     <p>Title : {prop.title}</p>
-//                 </div>
-//             ))}
-//             {/* 다음 글로 이동, 글 제목과 같이 보여짐 */}
-//             {/* 이 페이지에서 새로고침하면 오류가 남... 그 전에는 잘 보여짐 */}
-//             {prev ? (<p><Link to={`/PostList/${prev.userId}/${prev.id}`}>이전 글 | {prev.title}</Link></p>) : (<p>이전 글이 없습니다.</p>)}
-//             {next ? (<p><Link to={`/PostList/${next.userId}/${next.id}`}>다음 글 | {next.title}</Link></p>) : (<p>다음 글이 없습니다</p>)}
-
-//         </div>
-//     );
-// }
-
-// export default DetailView;
