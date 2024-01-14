@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import Comment from './Comment'
 
 export default function Example({data},{}) {
 
@@ -32,6 +33,9 @@ export default function Example({data},{}) {
           {/* 이전과 다음 링크를 출력 */}
           {prev ? (<p><Link to={`/PostList?id=${prev.id}`}>이전 글 | {prev.title}</Link></p>) : (<p>이전 글이 없습니다.</p>)}
           {next ? (<p><Link to={`/PostList?id=${next.id}`}>다음 글 | {next.title}</Link></p>) : (<p>다음 글이 없습니다</p>)}
+          <br></br>
+          <Comment></Comment>
         </div>
+        
       );
   }
