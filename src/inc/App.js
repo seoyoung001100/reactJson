@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 //axios를 통해서 데이터를 받아옴
 function App() {
   const [data, setData] = useState(null);
+  const [userdata, setUserdata] = useState(null);
 
   useEffect(() => {
     // async()는 함수가 들어있는 라이브러리
@@ -29,7 +30,7 @@ function App() {
     const userList = async() =>{
       try {
         const userData = await axios.get('https://jsonplaceholder.typicode.com/users');
-        setData(userData.data); 
+        setUserdata(userData.data); 
   
         console.log(userData.data); 
       } 
@@ -48,7 +49,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={< UserList data={data} />}/>
+        <Route path="/" element={< UserList data={userdata} />}/>
+        <Route path="/PostList" element={< PostList data={data} />}></Route>
         <Route path="/PostList:/userId" element={< PostList data={data} />}></Route> {/* :userId를 넣으면 해당 유저 페이지에서 글이 나옴 */}
         {/* <Route path="/PostList" element={< DetailView data={data} />}></Route> */}
         <Route path="/DetailView"/>

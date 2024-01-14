@@ -81,7 +81,7 @@ const tabs = [
     // const { userId } = useParams();
     return (
       <div className="border-b border-gray-200 pb-5 sm:pb-0">
-        <h3 className="text-base font-semibold leading-6 text-gray-900">Candidates</h3>
+        <h3 className="text-base font-semibold leading-6 text-gray-900">PostList</h3>
         <div className="mt-3 sm:mt-4">
           <div className="sm:hidden">
             <label htmlFor="current-tab" className="sr-only">
