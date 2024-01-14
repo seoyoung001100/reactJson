@@ -14,64 +14,6 @@ const tabs = [
   { name: '완료', current: false },
 ];
 
-// const selectMenuHandler = (index) => {
-//   // parameter로 현재 선택한 인덱스 값을 전달해야 하며, 이벤트 객체(event)는 쓰지 않아도 자동 전달됨
-//   // 함수가 실행되면 현재 선택된 Tab Menu 가 갱신된다.
-//   setCurrentTab(index);
-// // };
-
-
-// useEffect(()=>{
-
-// })
-
-// export default function PostList() {
-//   const [currentTab, setCurrentTab] = useState(tabs.find(tab => tab.current));
-//   const data = useRecoilValue(UserPostList);
-
-//   const { userId } = useParams();
-//   const posts = data && data.filter((item) => item.userId == userId);
-
-//   const description = data && data.filte()
-
-//   const TabMenus = {
-//     "전체":()=>
-//     <div>{posts && posts.map((post, index) => (
-//       <div key={index}>
-//         <ul>
-//           <li>
-//             <Link to={`/postList/${post.userId}/${post.id}`}>{post.title} 전체 id : {post.id}, userid : {post.userId}</Link>
-//           </li>
-//         </ul>
-//       </div>
-//     ))}</div>,
-//     "작성중":()=>
-//     <div>{posts && posts.map((post, index) => (
-//       <div key={index}>
-//         <ul>
-//           <li>
-//             <Link to={`/postList/${post.userId}/${post.id}`}>{post.title} 작성중 id : {post.id}, userid : {post.userId}</Link>
-//           </li>
-//         </ul>
-//       </div>
-//     ))}</div>,
-//     "완료":()=>
-//     <div>{posts && posts.map((post, index) => (
-//       <div key={index}>
-//         <ul>
-//           <li>
-//             <Link to={`/postList/${post.userId}/${post.id}`}>{post.title} 완료 id : {post.id}, userid : {post.userId}</Link>
-//           </li>
-//         </ul>
-//       </div>
-//     ))}</div>
-//   };
-
-  // const TabMenu = TabMenus[currentTab.name];
-
-  // console.log({userId})
-
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
