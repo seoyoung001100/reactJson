@@ -1,3 +1,4 @@
+
 import '../App.css';
 import axios from "axios";
 import { Routes, Route } from 'react-router-dom';
@@ -5,7 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import UserList from "./UserList";
 import PostList from "./PostList";
 import DetailView from "./DetailView";
-import Comment from "./Comment";
+import CommentList from './CommentList';
 import React, { useEffect, useState } from 'react';
 
 
@@ -42,10 +43,10 @@ function App() {
     };
     const userComment = async() =>{
       try {
-        const userData = await axios.get('https://jsonplaceholder.typicode.com/comments?postId=1');
-        setComment(userData.data); 
+        const comment = await axios.get('https://jsonplaceholder.typicode.com/comments?postId=1');
+        setComment(comment.data); 
   
-        console.log(userData.data); 
+        console.log(comment.data); 
       } 
       catch (error) {
         console.error('Error', error);
@@ -68,7 +69,7 @@ function App() {
         <Route path="/PostList/:userId" element={<PostList data={data}/>}></Route> {/* :userId를 넣으면 해당 유저 페이지에서 글이 나옴 */}
         <Route path="/PostList" element={< DetailView data={data} />}></Route>
         {/* <Route path="/DetailView" element={<DetailView data={data}/>}></Route> */}
-        <Route path="/Comment" element={< Comment data={comment} />}/>
+        <Route path="/PostList" element={< CommentList data={comment} />}/>
       </Routes> {/* :userId, :id를 사용하려면 useEffect를 선언? 해줘야한다. (8번줄) */}
     </div>
   );

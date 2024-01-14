@@ -2,9 +2,11 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import Comment from './Comment'
+import Comment from './Comment';
+import CommentList from './CommentList';
 
-export default function Example({data},{}) {
+
+export default function Example({data}) {
 
     const location = useLocation();
     const query = new URLSearchParams(location.search);
@@ -35,6 +37,7 @@ export default function Example({data},{}) {
           {next ? (<p><Link to={`/PostList?id=${next.id}`}>다음 글 | {next.title}</Link></p>) : (<p>다음 글이 없습니다</p>)}
           <br></br>
           <Comment></Comment>
+          <CommentList></CommentList>
         </div>
         
       );
