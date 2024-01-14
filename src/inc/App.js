@@ -7,6 +7,7 @@ import UserList from "./UserList";
 import PostList from "./PostList";
 import DetailView from "./DetailView";
 import CommentList from './CommentList';
+import Header from "./Header";
 import React, { useEffect, useState } from 'react';
 
 
@@ -59,10 +60,14 @@ function App() {
  
   
   }, []);
+  if (!data || !userdata || !comment) {
+    return <div>Loading...</div>;
+  } //새로 고침시, 로딩
   
   //Router 페이지
   return (
     <div>
+    <Header></Header>
       <Routes>
         <Route path="/" element={< UserList data={userdata} />}/>
         {/* <Route path="/PostList" element={< PostList data={data} />}></Route> */}
